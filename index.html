@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Herbst-Schätzspiel</title>
+    <meta
+      name="description"
+      content="Ein einfaches Herbst-Schätzspiel mit Namen, Slider, Gewinneranzeige und Adminansicht."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand" aria-label="Herbst-Schätzspiel">
+          <span class="brand-mark">🍂</span>
+          <span>Erntedank-Schätzspiel</span>
+        </div>
+        <button id="adminToggle" class="admin-button" type="button">Admin</button>
+      </header>
+
+      <main class="content">
+        <section id="guessScreen" class="card screen active" aria-live="polite">
+          <p class="eyebrow">Schätze mit!</p>
+          <h1 id="questionTitle">Wie viele Laubblätter liegen im Korb?</h1>
+
+          <form id="guessForm" class="guess-form">
+            <label class="field">
+              <span>Name</span>
+              <input
+                id="nameInput"
+                name="name"
+                type="text"
+                maxlength="30"
+                placeholder="Hier den Namen eintragen"
+                required
+              />
+            </label>
+
+            <label class="field">
+              <span>Deine Schätzung</span>
+              <div class="slider-group">
+                <input
+                  id="estimateSlider"
+                  name="estimate"
+                  type="range"
+                  min="0"
+                  max="500"
+                  step="1"
+                  value="250"
+                />
+                <div class="estimate-value" aria-live="polite">
+                  <span id="estimateValue">250</span>
+                </div>
+              </div>
+            </label>
+
+            <button class="primary-button" type="submit">Schätzung absenden</button>
+          </form>
+        </section>
+
+        <section id="thanksScreen" class="card screen hidden" aria-live="polite">
+          <div class="thank-you">
+            <div class="thank-you-icon">✅</div>
+            <h2>Danke für deine Schätzung!</h2>
+            <p>Deine Antwort wurde gespeichert. Du wirst gleich wieder zur Schätzseite zurückgeleitet.</p>
+          </div>
+        </section>
+
+        <section id="adminScreen" class="card screen hidden" aria-live="polite">
+          <div class="screen-header">
+            <p class="eyebrow">Adminbereich</p>
+            <button id="closeAdmin" class="ghost-button" type="button">Zurück</button>
+          </div>
+
+          <div id="adminGate" class="admin-gate">
+            <label class="field">
+              <span>Passwort</span>
+              <input id="adminPasswordInput" type="password" placeholder="Passwort eingeben" />
+            </label>
+            <button id="unlockAdmin" class="primary-button" type="button">Einsehen</button>
+            <p id="adminError" class="error-message hidden">Falsches Passwort. Bitte versuche es erneut.</p>
+          </div>
+
+          <div id="adminPanel" class="admin-panel hidden">
+            <label class="field">
+              <span>Richtiger Wert</span>
+              <input id="correctValueInput" type="number" min="0" step="1" />
+            </label>
+            <div class="admin-actions">
+              <button id="saveCorrectValue" class="primary-button" type="button">Wert speichern</button>
+              <button id="exportEntries" class="ghost-button" type="button">Teilnehmer exportieren</button>
+              <button id="clearAllEntries" class="ghost-button danger-button" type="button">Alle Teilnehmer löschen</button>
+            </div>
+
+            <div class="result-box">
+              <h3>Gewinner</h3>
+              <div id="winnerCard" class="winner-card">Noch keine Schätzungen.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Ranking</h3>
+              <ol id="rankingList" class="ranking-list"></ol>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
